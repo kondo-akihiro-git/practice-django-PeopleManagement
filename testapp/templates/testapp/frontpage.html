@@ -1,0 +1,11 @@
+{% extends "testapp/base.html" %} 
+{% block content %}
+
+{% for info in userinfo %}
+<div>
+    <h2 class = "subtitle">{{info.user_name}}</h2>
+    <a href="{% url 'user_detail' info.slug %}">もっと読む</a>
+</div>
+
+{% endfor %}
+{% endblock %}
