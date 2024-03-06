@@ -1,11 +1,34 @@
 {% extends "testapp/base.html" %} 
 {% block content %}
 
-{% for info in userinfo %}
-<div>
-    <h2 class = "subtitle">{{info.user_name}}</h2>
-    <a href="{% url 'user_detail' info.slug %}">もっと読む</a>
-</div>
+<section class="container">
 
-{% endfor %}
+    <div class="columns features" style="display: flex; overflow-x: scroll;">
+        {% for info in userinfo %}
+
+        <div class="column is-4">
+          <div class="card is-shady">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="https://images.unsplash.com/photo-1515555230216-82228b88ea98?auto=format&amp;fit=crop&amp;w=900&amp;q=60" alt="Placeholder image" class="modal-button" data-target="modal-image2">
+              </figure>
+            </div>
+            <div class="card-content">
+              <div class="content">
+                <h4>{{info.user_name}}</h4>
+                <p>{{info.company_name}}</p>
+                <p>{{info.mail_address}}</p>
+                <p>{{info.test_empty}}</p>
+                <span class="button is-link modal-button" data-target="modal-image2"><a href="{% url 'user_detail' info.slug %}">編集</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+          {% endfor %}
+    </div>
+    </section>
+    
+  <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
+          crossorigin="anonymous"></script>  
 {% endblock %}

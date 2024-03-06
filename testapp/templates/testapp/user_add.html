@@ -1,0 +1,74 @@
+{% extends "testapp/base.html" %} 
+{% block content %}
+
+<form action = "." method="post" class="column is-half" style = "margin-left: auto;margin-right: auto;">
+    {% csrf_token %}
+
+  <div class="card is-shady">
+        <div class="card-content">
+
+            <div class="field">
+                <label class="label">Username</label>
+                <div class="control">
+                  <input id ="user_name" name = "user_name" class="input" type="text" placeholder="{{userdetail.user_name}}" value ="{{userdetail.user_name}}">
+                </div>
+              </div>
+
+              <div class="field">
+                <label class="label">Company</label>
+                <div class="control">
+                  <input id ="company_name" name = "company_name"class="input" type="text" placeholder="{{userdetail.company_name}}" value ="{{userdetail.company_name}}">
+                </div>
+              </div>
+              
+              <div class="field">
+                <label class="label">Email</label>
+                <div class="control">
+                  <input id ="mail_address" name = "mail_address" class="input" type="email" placeholder="{{userdetail.mail_address}}" value ="{{userdetail.mail_address}}">
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Password</label>
+                  <input id ="password" name = "password"class="input" type="password"placeholder="{{userdetail.password}}" value ="{{userdetail.password}}">
+                </p>
+              </div>
+              <div class="field">
+                <label class="label">Message</label>
+                <div class="control">
+                  <textarea id ="test_empty" name = "test_empty"class="textarea"placeholder="{{userdetail.test_empty}}" value ="{{userdetail.test_empty}}"></textarea>
+                </div>
+              </div>
+
+              <div class="field">
+              <div class="file is-centered is-boxed">
+                <label class="file-label">
+                  <input class="file-input" type="file" name="resume">
+                  <span class="file-cta">
+                    <span class="file-label">
+                      Upload your image here
+                    </span>
+                  </span>
+                </label>
+              </div>
+              </div>
+
+            <input type="hidden" id = "slug" name = "slug" value ="{{userdetail.slug}}"/>
+
+            <div class = "container" style ="display: flex; justify-content: space-between;">
+                <div class="control">
+                  <button class="button is-primary">Add</button>
+                </div>
+
+              <div class="control">
+                <button class="button is-primary">Update</button>
+              </div>
+
+              <div class="control">
+                <button class="button is-danger">Delete</button>
+              </div>
+            </div> 
+        </div>
+      </div>
+</form> 
+
+{% endblock %}

@@ -1,8 +1,84 @@
 {% extends "testapp/base.html" %} 
 {% block content %}
+    <section class="container" style="display: flex; justify-content: space-between;">
+        <div class="column is-half">
+          <div class="card is-shady">
+            <div class="card-image">
+              <figure class="image is-4by3">
+                <img src="https://images.unsplash.com/photo-1515555230216-82228b88ea98?auto=format&amp;fit=crop&amp;w=900&amp;q=60" alt="Placeholder image" class="modal-button" data-target="modal-image2">
+              </figure>
+            </div>
+        </div>
+    </div>
 
-    <h2 class = "title">{{userdetail.company_name}}</h2>
-    <p>{{userdetail.company_name}}</p>
-    <p>{{userdetail.mail_address}}</p>
+    <form action = "." method="post" class="column is-half">
+        {% csrf_token %}
 
+      <div class="card is-shady">
+            <div class="card-content">
+
+                <div class="field">
+                    <label class="label">Username</label>
+                    <div class="control">
+                      <input id ="user_name" name = "user_name" class="input" type="text" placeholder="{{userdetail.user_name}}" value ="{{userdetail.user_name}}">
+                    </div>
+                  </div>
+ 
+                  <div class="field">
+                    <label class="label">Company</label>
+                    <div class="control">
+                      <input id ="company_name" name = "company_name"class="input" type="text" placeholder="{{userdetail.company_name}}" value ="{{userdetail.company_name}}">
+                    </div>
+                  </div>
+                  
+                  <div class="field">
+                    <label class="label">Email</label>
+                    <div class="control">
+                      <input id ="mail_address" name = "mail_address" class="input" type="email" placeholder="{{userdetail.mail_address}}" value ="{{userdetail.mail_address}}">
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Password</label>
+                      <input id ="password" name = "password"class="input" type="password"placeholder="{{userdetail.password}}" value ="{{userdetail.password}}">
+                    </p>
+                  </div>
+                  <div class="field">
+                    <label class="label">Message</label>
+                    <div class="control">
+                      <textarea id ="test_empty" name = "test_empty"class="textarea"placeholder="{{userdetail.test_empty}}" value ="{{userdetail.test_empty}}"></textarea>
+                    </div>
+                  </div>
+
+                  <div class="field">
+                  <div class="file is-centered is-boxed">
+                    <label class="file-label">
+                      <input class="file-input" type="file" name="resume">
+                      <span class="file-cta">
+                        <span class="file-label">
+                          Upload your image here
+                        </span>
+                      </span>
+                    </label>
+                  </div>
+                  </div>
+
+                <input type="hidden" id = "slug" name = "slug" value ="{{userdetail.slug}}"/>
+
+                <div class = "container" style ="display: flex; justify-content: space-between;">
+
+                  <div class="control">
+                    <button class="button is-primary">Update</button>
+                  </div>
+
+                  <div class="control">
+                    <button class="button is-danger">Delete</button>
+                  </div>
+                </div> 
+            </div>
+          </div>
+    </form> 
+
+    <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
+            crossorigin="anonymous"></script>  
 {% endblock %}
