@@ -1,60 +1,82 @@
-{% extends "testapp/base.html" %} 
+{% extends "testapp/base.html" %}
 {% block content %}
+
+
 
 <section class="container">
 
-    <div class="columns features" style="display: flex; overflow-x: scroll;">
-        {% for info in userinfo %}
+  <div class="columns features" style="display: flex; overflow-x: scroll;">
+    {% for info in userinfo %}
 
-        <div class="column is-4">
-          <div class="card is-shady">
-            <div class="card-image">
-              <figure class="image is-4by3">
-                <img src="https://images.unsplash.com/photo-1515555230216-82228b88ea98?auto=format&amp;fit=crop&amp;w=900&amp;q=60" alt="Placeholder image" class="modal-button" data-target="modal-image2">
-              </figure>
-            </div>
-            <div class="card-content">
-              <div class="content">
-                <h4>{{info.user_name}}</h4>
-                <p>{{info.company_name}}</p>
-                <p>{{info.mail_address}}</p>
-                <p>{{info.test_empty}}</p>
-                <div style = "display: flex;justify-content: space-between;">
-                <span class="button is-primary modal-button"><a href="{% url 'user_detail' info.slug %}"  style="color: white;">編集</a></span>
-                <span>
-                <label class="checkbox" style = "margin-top: 13px;" >
-                  <input id = "{{info.slug}}" type="checkbox"onclick="test('{{info.slug}}');">
+    <div class="column is-4">
+      <div class="card is-shady img_wrap">
+        <div class="card-image">
+          <figure class="image is-4by3 ">
+            <img
+              src="https://images.unsplash.com/photo-1515555230216-82228b88ea98?auto=format&amp;fit=crop&amp;w=900&amp;q=60"
+              alt="Placeholder image" class="modal-button"
+              data-target="modal-image2">
+          </figure>
+        </div>
+
+        <!-- 名刺の内容 -->
+        <div class="card-content">
+          <div class="content">
+            <h4>{{info.user_name}}</h4>
+            <p>{{info.company_name}}</p>
+            <p>{{info.mail_address}}</p>
+            <p>{{info.test_empty}}</p>
+            <div style="display: flex;justify-content: space-between;">
+              <span class="button is-primary modal-button"><a
+                  href="{% url 'user_detail' info.slug %}" style="color: white;">編集</a></span>
+              <span>
+                <label class="checkbox" style="margin-top: 13px;">
+                  <input id="{{info.slug}}" type="checkbox" style="accent-color: #f00;"
+                    onclick="test('{{info.slug}}');">
                   お気に入り
                 </label>
               </span>
-              </div>
-              </div>
             </div>
           </div>
         </div>
-
-
-          {% endfor %}
+      </div>
     </div>
-    </section>
-    
-  <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
-          crossorigin="anonymous"></script>  
 
-          <script type="text/javascript">
+
+    <script>
+      // DB情報→チェックボックスの更新
+      checkbox = document.getElementById("{{info.slug}}");
+      console.log("checkbox"+checkbox);
+      flg = "{{info.test_flg}}";
+      console.log("flg"+flg)
+      if(flg == "True"){
+        checkbox.checked = true;
+      }else{
+        checkbox.checked = false;
+      }
+      
+    </script>
+
+    {% endfor %}
+  </div>
+</section>
+
+<script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
+  integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
+  crossorigin="anonymous"></script>
+
+<script type="text/javascript">
                     function test(slug) {
                       window.sessionStorage.setItem(['slug'],[slug]);
                       check = document.getElementById(slug).checked
                       window.sessionStorage.setItem(['check'],[check]);
 
                       document.cookie = "slug="+slug;
-
                       document.cookie = "check="+check;
 
                       window.location.href = "{% url 'bookmark' %}"
                     } 
           </script>
-
 
 {% endblock %}
