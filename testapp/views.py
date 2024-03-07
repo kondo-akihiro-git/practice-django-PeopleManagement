@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from testapp.forms import UserForm,UserForm_add
 from .models import UserInfo
 import pykakasi
+import requests
 # Create your views here.
+import pprint
 
 global currentSlug
 currentSlug = ""
@@ -66,5 +68,37 @@ def delete_info(request):
 
     UserInfo.objects.filter(slug = currentSlug).delete()
     
+    userinfo = UserInfo.objects.all()
+    return render(request, "testapp/frontpage.html", {"userinfo":userinfo})
+
+def bookmark(request):
+    
+
+    # session = requests.Session()
+    # responce = session.get('http://localhost:8000')
+    # print(session.cookies)
+    slug = request.COOKIES.get('slug', 0)  
+    check = request.COOKIES.get('check', 0)
+
+    userdetail = UserInfo.objects.get(slug=slug)
+
+    
+    print(userdetail.test_flg)
+
+    print(check)
+    
+    if check == "true":
+        userdetail.test_flg = True
+        print(1)
+        userdetail.save()
+    elif check == "false":
+        print(2)
+        userdetail.test_flg = False
+        userdetail.save()
+    
+    
+
+    print("Finish")
+
     userinfo = UserInfo.objects.all()
     return render(request, "testapp/frontpage.html", {"userinfo":userinfo})

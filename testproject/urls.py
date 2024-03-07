@@ -18,12 +18,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from testapp.views import frontpage, user_detail, user_add, delete_info
+from testapp.views import frontpage, user_detail, user_add, delete_info, bookmark
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", frontpage, name = "frontpage"),
     path('user_add/', user_add, name = "user_add"),
     path('delete_info/', delete_info, name = "delete_info"),
+    path('bookmark/', bookmark, name = "bookmark"),
     path("<slug:slug>/", user_detail, name = "user_detail")
 ]
