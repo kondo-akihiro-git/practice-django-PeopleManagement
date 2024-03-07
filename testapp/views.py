@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
-from testapp.forms import UserForm
+from testapp.forms import UserForm,UserForm_add
 from .models import UserInfo
 import pykakasi
 # Create your views here.
+
+global currentSlug
+currentSlug = ""
 
 def frontpage(request):
     userinfo = UserInfo.objects.all()
@@ -10,27 +13,42 @@ def frontpage(request):
 
 def user_add(request):
     userinfo = UserInfo.objects.all()
-    return render(request, "testapp/user_add.html", {"userinfo":userinfo})
+    if request.method == "POST":
+        form = UserForm_add(request.POST)
+        print(form.errors)
+        if form.is_valid():
+            input_info = form.save(commit =False)
+            input_info.slug =convertLanguage(request.POST.get("user_name"))
+            input_info.save()
+            print("新規登録処理完了")
+
+        return redirect("user_add")
+    else:
+        form = UserForm_add()
+    return render(request, "testapp/user_add.html", {"userinfo":userinfo, "form":form})
 
 def user_detail(request, slug):
+    print("Update処理開始")
     userdetail = UserInfo.objects.get(slug=slug)
+
+    global currentSlug
+    currentSlug = slug
 
     if request.method == "POST":
         form = UserForm(request.POST)
-
         if form.is_valid():
+            userdetail.user_name = request.POST.get("user_name")
+            userdetail.company_name = request.POST.get("company_name")
+            userdetail.mail_address = request.POST.get("mail_address")
+            userdetail.password = request.POST.get("password")
+            userdetail.test_empty = request.POST.get("test_empty")
+            userdetail.save() 
+            print("Update処理完了")
 
-            #userdetail.user_name = request.POST.get("user_name")
-            #userdetail.save() 
-
-            input_info = form.save(commit =False)
-            input_info.user_detail = user_detail
-            input_info.slug =convertLanguage(request.POST.get("user_name"))
-            input_info.save()
-            
-            
             return redirect("user_detail", slug=userdetail.slug)
         
+        else:
+            form = UserForm()
     else:
         form = UserForm()
 
@@ -43,3 +61,10 @@ def convertLanguage(str):
     return str
 
 
+def delete_info(request):
+    print("delete処理開始")
+
+    UserInfo.objects.filter(slug = currentSlug).delete()
+    
+    userinfo = UserInfo.objects.all()
+    return render(request, "testapp/frontpage.html", {"userinfo":userinfo})

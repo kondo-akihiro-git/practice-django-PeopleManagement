@@ -2,8 +2,7 @@
 {% block content %}
 
 <form action = "." method="post" class="column is-half" style = "margin-left: auto;margin-right: auto;">
-    {% csrf_token %}
-
+  {% csrf_token %}
   <div class="card is-shady">
         <div class="card-content">
 
@@ -52,23 +51,18 @@
               </div>
               </div>
 
-            <input type="hidden" id = "slug" name = "slug" value ="{{userdetail.slug}}"/>
+            <input type="hidden" id = "slug" name = "slug" value ="defaultvalue"/>
 
             <div class = "container" style ="display: flex; justify-content: space-between;">
                 <div class="control">
                   <button class="button is-primary">Add</button>
                 </div>
-
-              <div class="control">
-                <button class="button is-primary">Update</button>
-              </div>
-
-              <div class="control">
-                <button class="button is-danger">Delete</button>
-              </div>
             </div> 
         </div>
       </div>
 </form> 
+<script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
+        crossorigin="anonymous"></script>  
 
 {% endblock %}

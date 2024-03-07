@@ -21,13 +21,14 @@
     <section class="hero is-info is-small">
         <div class="hero-body">
           <div class="container has-text-centered">
+            <a href="{% url 'frontpage' %}">
             <p class="title">
-            <a href="/" class = "navbar-item"></a>
               Profile Card List
             </p>
             <p class="subtitle">
               名刺管理
             </p>
+          </a>
           </div>
         </div>
       </section>
@@ -37,8 +38,10 @@
           <span class="tag is-info">操作</span> 名刺カードの追加、編集、削除ができます。
         </p>
         <div class="control">
-        <span class="button is-primary "><a href="http://localhost:8000/user_add/" style="color: #ffffff; font-size: 25px;">+</a></span>
-      </div>
+          <a href="{% url 'user_add' %}" style="color: #ffffff; font-size: 25px;">
+            <span class="button is-primary ">+</span>
+          </a>
+        </div>
       </div>
 
     <section class ="section">

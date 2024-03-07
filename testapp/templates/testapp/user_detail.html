@@ -9,13 +9,40 @@
               </figure>
             </div>
         </div>
+       
+        <section class="container" >
+            <div class="card is-shady"style="margin-top: 20px; height: 85px;">
+                <div class="column" style="vertical-align: middle;">
+                    <form action = "." method="post" >
+                        <div class="field">
+                            <div class="file is-centered is-boxed">
+                              <label class="file-label">
+                                <input class="file-input" type="file" name="resume">
+                                <span class="file-cta">
+                                  <span class="file-label">
+                                    Upload your image here
+                                  </span>
+                                </span>
+                              </label>
+                            </div>
+                            </div>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <form action = "." method="post" class="column is-half">
-        {% csrf_token %}
+    <div class="column is-half">
+
 
       <div class="card is-shady">
+
+
             <div class="card-content">
+
+                <form action = "." method="post" >
+                    {% csrf_token %}
+
 
                 <div class="field">
                     <label class="label">Username</label>
@@ -49,36 +76,33 @@
                     </div>
                   </div>
 
-                  <div class="field">
-                  <div class="file is-centered is-boxed">
-                    <label class="file-label">
-                      <input class="file-input" type="file" name="resume">
-                      <span class="file-cta">
-                        <span class="file-label">
-                          Upload your image here
-                        </span>
-                      </span>
-                    </label>
-                  </div>
-                  </div>
-
                 <input type="hidden" id = "slug" name = "slug" value ="{{userdetail.slug}}"/>
 
-                <div class = "container" style ="display: flex; justify-content: space-between;">
-
-                  <div class="control">
-                    <button class="button is-primary">Update</button>
-                  </div>
-
-                  <div class="control">
-                    <button class="button is-danger">Delete</button>
+                <div class = "container" style ="z-index: 2; text-align: left;">
+                  <div class="control   "style ="float: left; ">
+                    <button type = "submit" name = "Update" class="button is-primary" >Update</button>
                   </div>
                 </div> 
-            </div>
-          </div>
-    </form> 
+
+            </form> 
+            <form action = "{% url 'delete_info' %}" method="post"style ="margin-bottom: -40px;" >
+                {% csrf_token %}
+                <div class="control"style ="text-align:right; top: -40px; z-index: 1;">       
+                    <button type = "submit" name = "Delete"class="button is-danger">Delete</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+
+    <section class="container" style="display: block; justify-content: space-between; ">
+        <div class="column is-half">
+
+        </div>
+    </section>
 
     <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
             crossorigin="anonymous"></script>  
+
 {% endblock %}
