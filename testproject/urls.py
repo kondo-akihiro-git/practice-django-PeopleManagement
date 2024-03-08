@@ -26,6 +26,6 @@ urlpatterns = [
     path('user_add/', user_add, name = "user_add"),
     path('delete_info/', delete_info, name = "delete_info"),
     path('bookmark/', bookmark, name = "bookmark"),
-        path('user_fav/', user_fav, name = "user_fav"),
+    path('user_fav/', user_fav, name = "user_fav"),
     path("<slug:slug>/", user_detail, name = "user_detail")
 ]

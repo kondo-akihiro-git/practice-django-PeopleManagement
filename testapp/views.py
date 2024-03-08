@@ -3,6 +3,8 @@ from testapp.forms import UserForm, UserForm_add
 from .models import UserInfo
 import pykakasi
 import requests
+from selenium import webdriver
+from selenium.webdriver.chrome import service
 
 # Create your views here.
 import pprint
@@ -82,33 +84,33 @@ def delete_info(request):
 
 
 def bookmark(request):
-
-    # session = requests.Session()
-    # responce = session.get('http://localhost:8000')
-    # print(session.cookies)
     slug = request.COOKIES.get("slug", 0)
     check = request.COOKIES.get("check", 0)
 
+    print("def slug="+slug)
+    print("def check="+check)
+
+
     userdetail = UserInfo.objects.get(slug=slug)
-
-    print(userdetail.test_flg)
-
-    print(check)
 
     if check == "true":
         userdetail.test_flg = True
-        print(1)
+        print("true判定")
         userdetail.save()
     elif check == "false":
-        print(2)
+        print("false判定")
         userdetail.test_flg = False
         userdetail.save()
 
-    print("Finish")
-
     userinfo = UserInfo.objects.all()
+    
     return render(request, "testapp/frontpage.html", {"userinfo": userinfo})
 
 def user_fav(request):
+    favuser = []
     userinfo = UserInfo.objects.all()
-    return render(request, "testapp/user_fav.html", {"userinfo": userinfo})
+    for info in userinfo:
+        if info.test_flg == True:
+            favuser.append(info)
+
+    return render(request, "testapp/user_fav.html", {"favuser": favuser})

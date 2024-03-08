@@ -23,9 +23,9 @@
         <div class="card-content">
           <div class="content">
             <h4>{{info.user_name}}</h4>
-            <p>{{info.company_name}}</p>
-            <p>{{info.mail_address}}</p>
-            <p>{{info.test_empty}}</p>
+            <p>会社 : {{info.company_name}}</p>
+            <p>メール : {{info.mail_address}}</p>
+            <p>コメント : {{info.test_empty}}</p>
             <div style="display: flex;justify-content: space-between;">
               <span class="button is-primary modal-button"><a
                   href="{% url 'user_detail' info.slug %}" style="color: white;">編集</a></span>
@@ -44,6 +44,7 @@
 
 
     <script>
+      
       // DB情報→チェックボックスの更新
       checkbox = document.getElementById("{{info.slug}}");
       console.log("checkbox"+checkbox);
@@ -65,12 +66,15 @@
 <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
   integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
   crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 <script type="text/javascript">
+  
                     function test(slug) {
-                      window.sessionStorage.setItem(['slug'],[slug]);
+                      Cookies.remove('slug')
+                      Cookies.remove('check')
                       check = document.getElementById(slug).checked
-                      window.sessionStorage.setItem(['check'],[check]);
+
 
                       document.cookie = "slug="+slug;
                       document.cookie = "check="+check;

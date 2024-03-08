@@ -2,11 +2,18 @@
 {% block content %}
 
 user_fav
+<script>
+window.onload = function(){
+    // ページ読み込み時に実行したい処理
+    console.log("fav開始")
+    console.log("user="+"{{favuser}}")
+    }
+</script>
 
 <section class="container">
 
     <div class="columns features" style="display: flex; overflow-x: scroll;">
-        {% for info in userinfo %}
+        {% for info in favuser %}
 
         <div class="column is-4">
             <div class="card is-shady img_wrap">
@@ -67,5 +74,22 @@ user_fav
 <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
     integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
     crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+<script type="text/javascript">
+        function test(slug) {
 
+            Cookies.remove('slug')
+            Cookies.remove('check')
+
+            check = document.getElementById(slug).checked
+
+            document.cookie = "slug="+slug+";path="+"/bookmark";
+            document.cookie = "check="+check+";path="+"/bookmark";
+
+            console.log("slug="+slug)
+            console.log("check="+check)
+
+            window.location.href = "{% url 'bookmark' %}"
+        } 
+</script>
 {% endblock %}
