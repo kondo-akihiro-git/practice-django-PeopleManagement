@@ -12,7 +12,7 @@
       <div class="card-image">
         <figure class="image is-4by3">
           <img
-            src="https://images.unsplash.com/photo-1515555230216-82228b88ea98?auto=format&amp;fit=crop&amp;w=900&amp;q=60"
+            src="{{ MEDIA_URL }}{{userdetail.picture}}"
             alt="Placeholder image" class="modal-button"
             data-target="modal-image2">
         </figure>
@@ -22,7 +22,7 @@
     <section class="container">
       <div class="card is-shady" style="margin-top: 20px; height: 85px;">
         <div class="column">
-          <form action="." method="post"enctype="multipart/form-data">
+          <form  id = "detail-form" action="." method="post"enctype="multipart/form-data">
             {% csrf_token %}
             <div class="field">
               <div class="file is-boxed is-centered">
@@ -47,7 +47,7 @@
     <div class="card is-shady">
       <div class="card-content">
         <!-- FORM:Update -->
-        <form action="." method="post" enctype="multipart/form-data">
+        <form id = "detail-form" action="." method="post" enctype="multipart/form-data">
           {% csrf_token %}
 
           <div class="field">
