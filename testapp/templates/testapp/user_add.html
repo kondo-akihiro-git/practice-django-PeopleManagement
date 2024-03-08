@@ -47,7 +47,7 @@
                       Upload your image here
                     </span>
                   </span>
-                  <input  type ="text"class="file-name" id = "picture_" name = "picture_" >
+                  <input  type ="text"class="file-name" id = "picture_" name = "picture_" style = "max-width: 17rem;height: 25px;"readonly>
                 </label>
               </div>
               </div>
@@ -68,13 +68,11 @@
 
         <script>
           function buttonClick(){
-            // picture = document.getElementById('picture_');
-            // let files = picture.files;
-            // nameTag = document.getElementById('picture');
-            // var str = String(picture.value);
-            // console.log(str);
-            // nameTag.value  = str.replace(/C:\\fakepath\\/,'images/');
-            // console.log(nameTag.value);
+            picture = document.getElementById('picture');
+            let files = picture.files;
+            nameTag = document.getElementById('picture_');
+            var str = String(picture.value);
+            nameTag.value  = str.replace(/C:\\fakepath\\/,'images/');
           }
           
           </script>

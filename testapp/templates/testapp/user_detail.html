@@ -86,22 +86,23 @@
           <div class="field">
             <div class="file is-boxed is-centered">
               <label class="file-label">
-                <input id = "picture" name = "picture" class="file-input" type="file">
+                <input id = "picture" name = "picture" class="file-input" type="file" onchange="buttonClick()">
                 <span class="file-cta">
                   <span class="file-label">
                     Upload your image here
                   </span>
                 </span>
+                <input  type ="text"class="file-name" id = "picture_" name = "picture_" style = "max-width: 17rem;height: 25px;"readonly>
               </label>
             </div>
           </div>
 
           <div class="field">
-            <label class="label">Message</label>
+            <label class="label">Comment</label>
             <div class="control">
               <textarea id="test_empty" name="test_empty" class="textarea"
-                placeholder="{{userdetail.test_empty}}"
-                value="{{userdetail.test_empty}}"></textarea>
+                placeholder="{{userdetail.test_empty}}"style= "min-height: 4em;"
+                value="{{userdetail.test_empty}}">{{userdetail.test_empty}}</textarea>
             </div>
           </div>
 
@@ -132,5 +133,16 @@
   <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
     integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
     crossorigin="anonymous"></script>
+
+
+    <script>
+      function buttonClick(){
+        picture = document.getElementById('picture');
+        let files = picture.files;
+        nameTag = document.getElementById('picture_');
+        var str = String(picture.value);
+        nameTag.value  = str.replace(/C:\\fakepath\\/,'images/');
+      }
+      </script>
 
   {% endblock %}

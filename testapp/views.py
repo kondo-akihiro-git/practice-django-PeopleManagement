@@ -32,7 +32,8 @@ def user_add(request):
 
             input_info = form.save(commit=False)
             input_info.slug = convertLanguage(request.POST.get("user_name"))
-            input_info.picture = request.FILES["picture"]
+            if request.FILES.get("picture") is not None:
+                input_info.picture = request.FILES["picture"]
             input_info.save()
             print("新規登録処理完了")
 
@@ -59,13 +60,9 @@ def user_detail(request, slug):
             userdetail.mail_address = request.POST.get("mail_address")
             userdetail.password = request.POST.get("password")
             userdetail.test_empty = request.POST.get("test_empty")
-            userdetail.picture = request.FILES["picture"]
 
-            print("userdetail.picture")
-            print(userdetail.picture)
-            print("request.FILES[picture]")
-            print(request.FILES["picture"])
-
+            if request.FILES.get("picture") is not None:
+                userdetail.picture = request.FILES.get("picture") 
             userdetail.save()
             print("Update処理完了")
 
