@@ -1,7 +1,7 @@
 {% extends "testapp/base.html" %} 
 {% block content %}
 
-<form action = "." method="post" class="column is-half" style = "margin-left: auto;margin-right: auto;">
+<form action = "." method="post" enctype="multipart/form-data"  class="column is-half" style = "margin-left: auto;margin-right: auto;">
   {% csrf_token %}
   <div class="card is-shady">
         <div class="card-content">
@@ -41,12 +41,13 @@
               <div class="field">
               <div class="file is-centered is-boxed">
                 <label class="file-label">
-                  <input class="file-input" type="file" name="resume">
+                  <input id ="picture" name = "picture" class="file-input" type="file"  onchange="buttonClick()"value ="{{userdetail.picture}}">
                   <span class="file-cta">
                     <span class="file-label">
                       Upload your image here
                     </span>
                   </span>
+                  <input  type ="text"class="file-name" id = "picture_" name = "picture_" >
                 </label>
               </div>
               </div>
@@ -64,5 +65,19 @@
 <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
         crossorigin="anonymous"></script>  
+
+        <script>
+          function buttonClick(){
+            // picture = document.getElementById('picture_');
+            // let files = picture.files;
+            // nameTag = document.getElementById('picture');
+            // var str = String(picture.value);
+            // console.log(str);
+            // nameTag.value  = str.replace(/C:\\fakepath\\/,'images/');
+            // console.log(nameTag.value);
+          }
+          
+          </script>
+          
 
 {% endblock %}

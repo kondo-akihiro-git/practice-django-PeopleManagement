@@ -19,6 +19,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from testapp.views import frontpage, user_detail, user_add, delete_info, bookmark, user_fav
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,4 +30,4 @@ urlpatterns = [
     path('bookmark/', bookmark, name = "bookmark"),
     path('user_fav/', user_fav, name = "user_fav"),
     path("<slug:slug>/", user_detail, name = "user_detail")
-]
+] +  static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

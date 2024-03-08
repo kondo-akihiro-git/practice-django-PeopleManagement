@@ -10,7 +10,7 @@ class UserInfo (models.Model):
     user_name = models.CharField(max_length=255, blank=True) 
     mail_address = models.CharField(max_length=255, blank=True) 
     password = models.CharField(max_length=255, blank=True) 
-    picture = models.CharField(max_length=255, blank=True) 
+    picture = models.ImageField(upload_to='images/',blank=True, null=True, default='images/default.jpg')
     test_empty = models.CharField(max_length=255, blank=True) 
     test_flg = models.BooleanField(default=False)  # 削除有無
     test_datetime = models.DateTimeField(auto_now_add=True)

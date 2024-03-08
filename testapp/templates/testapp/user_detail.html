@@ -22,7 +22,8 @@
     <section class="container">
       <div class="card is-shady" style="margin-top: 20px; height: 85px;">
         <div class="column">
-          <form action="." method="post">
+          <form action="." method="post"enctype="multipart/form-data">
+            {% csrf_token %}
             <div class="field">
               <div class="file is-boxed is-centered">
                 <label class="file-label">
@@ -46,7 +47,7 @@
     <div class="card is-shady">
       <div class="card-content">
         <!-- FORM:Update -->
-        <form action="." method="post">
+        <form action="." method="post" enctype="multipart/form-data">
           {% csrf_token %}
 
           <div class="field">

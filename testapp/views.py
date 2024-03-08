@@ -21,11 +21,18 @@ def frontpage(request):
 def user_add(request):
     userinfo = UserInfo.objects.all()
     if request.method == "POST":
-        form = UserForm_add(request.POST)
-        print(form.errors)
+        # /form = UserForm_add(request.POST)
+        form = UserForm(request.POST)
+        print(form)
         if form.is_valid():
+            print("request.POST.get(picture)")
+            print(request.FILES["picture"])
+            print("request.POST.get(user_name)")
+            print(request.POST.get("user_name"))
+
             input_info = form.save(commit=False)
             input_info.slug = convertLanguage(request.POST.get("user_name"))
+            input_info.picture = request.FILES["picture"]
             input_info.save()
             print("新規登録処理完了")
 

@@ -9,4 +9,4 @@ class UserForm(forms.ModelForm):
 class UserForm_add(forms.ModelForm):
     class Meta:
         model = UserInfo
-        fields = ["user_name","company_name","mail_address","password","test_empty","picture","slug" ]
+        fields = ["user_name","company_name","mail_address","password","picture","test_empty","slug" ]
