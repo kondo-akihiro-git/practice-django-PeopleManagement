@@ -59,6 +59,13 @@ def user_detail(request, slug):
             userdetail.mail_address = request.POST.get("mail_address")
             userdetail.password = request.POST.get("password")
             userdetail.test_empty = request.POST.get("test_empty")
+            userdetail.picture = request.FILES["picture"]
+
+            print("userdetail.picture")
+            print(userdetail.picture)
+            print("request.FILES[picture]")
+            print(request.FILES["picture"])
+
             userdetail.save()
             print("Update処理完了")
 
