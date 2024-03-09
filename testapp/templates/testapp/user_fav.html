@@ -24,9 +24,7 @@
                             <p>{{info.company_name}}</p>
                             <p>{{info.mail_address}}</p>
                             <p>{{info.test_empty}}</p>
-                            <div
-                                style="display: flex;justify-content: space-between;">
-                                
+                            <div style="display: flex;justify-content: space-between;">
                                 <a href="{% url 'user_detail' info.slug %}"></a>
                                 <span>
                                     <label class="checkbox"
@@ -84,16 +82,14 @@
                                     <p>コメント : {{info.test_empty}}</p>
                                     <div
                                         style="display: flex;justify-content: space-between;">
-                                        <span class="button is-primary"><a
+                                        <span class="button is-primary">
+                                            <a
                                                 href="{% url 'user_detail' info.slug %}"
-                                                style="color: white;">編集</a></span>
-                                        <span>
-
+                                                style="color: white;">編集</a>
                                         </span>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>

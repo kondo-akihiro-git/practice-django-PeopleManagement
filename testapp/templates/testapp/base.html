@@ -31,24 +31,24 @@
   </heabulad>
   <body>
     <section class="hero is-info is-small">
-      <div class="hero-body">
+      <div class="hero-body" style="height:65px ;">
         <div class="container has-text-centered">
           <a href="{% url 'frontpage' %}">
-            <p class="title">
+            <p class="title" style="line-height:0.7 ;height:23px ;">
               Profile Card List
             </p>
             <p class="subtitle">
               名刺管理
             </p>
           </a>
+          
         </div>
       </div>
+      <a href="{% url 'logout' %}"><p class = "button is-info"style="text-align:right;">ログアウト</p></a>
     </section>
 
     <div class="box cta">
-      <p class="has-text-centered">
-        <span class="tag is-info">操作</span> 名刺カードの追加、編集、削除ができます。
-      </p>
+
       <div style="display: flex;justify-content: space-between;">
         <div class="control">
           <a href="{% url 'user_add' %}"
@@ -56,6 +56,11 @@
             <span class="button is-primary ">+</span>
           </a>
         </div>
+
+        <div class="has-text-centered" style=" margin-top: 8px;">
+          <span class="tag is-info">操作</span> 名刺カードの追加、編集、削除ができます。
+        </div>
+
         <div class="control">
           <a href="{% url 'user_fav' %}"
             style="color: #ffffff; font-size: 25px;">

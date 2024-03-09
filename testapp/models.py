@@ -15,3 +15,5 @@ class UserInfo (models.Model):
     test_flg = models.BooleanField(default=False)  # 削除有無
     test_datetime = models.DateTimeField(auto_now_add=True)
     slug = models.SlugField()
+
+    

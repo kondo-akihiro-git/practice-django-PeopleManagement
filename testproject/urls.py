@@ -18,13 +18,17 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from testapp.views import frontpage, user_detail, user_add, delete_info, bookmark, user_fav
+from testapp.views import frontpage, user_detail, user_add, delete_info, bookmark, user_fav, login_user, registation_user, Logout
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+
     path('admin/', admin.site.urls),
-    path("", frontpage, name = "frontpage"),
+    path("", login_user, name = "login"),
+    path('logout/', Logout.as_view(), name="logout"),
+    path("registration/", registation_user, name = "registration"),
+    path("frontpage/", frontpage, name = "frontpage"),
     path('user_add/', user_add, name = "user_add"),
     path('delete_info/', delete_info, name = "delete_info"),
     path('bookmark/', bookmark, name = "bookmark"),

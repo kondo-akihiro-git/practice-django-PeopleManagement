@@ -138,3 +138,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR.joinpath('media')
 MEDIA_URL = '/media/'
+
+
+# 認証リダイレクト設定
+LOGIN_URL = "login"  # LOGINが必要なビューにアクセスがあった場合の遷移先
+LOGIN_REDIRECT_URL = "frontpage"  # LOGIN後のリダイレクト先
+LOGOUT_REDIRECT_URL = "login"  # LOGOUT後のリダイレクト先
