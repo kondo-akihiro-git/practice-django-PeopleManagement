@@ -226,11 +226,17 @@ def registation_user(request):
         if not has_alphabet(password):
             registration_form.add_error("password", "アルファベットが含まれていません")
         if registration_form.has_error("password"):
+            registration_form.add_error("password", "パスワードが適切ではありません")
+
+            
+
+            print("Error : Registration へ")
             return render(
                 request,
                 "testapp/registration.html",
                 {"registration_form": registration_form},
             )
+        print("User作成したい")
         user = User.objects.create_user(
             username=request.POST["username"],
             password=password,
@@ -238,7 +244,9 @@ def registation_user(request):
         )
 
         login_form = LoginForm(request.POST)
-        return render(request, "testapp/login.html", {"login_form": login_form})
+        print("Loginしたい")
+        # return render(request, "testapp/login.html", {"login_form": login_form})
+        return django.http.HttpResponseRedirect("/")
 
     else:
         registration_form = testapp.forms.RegistrationForm()
