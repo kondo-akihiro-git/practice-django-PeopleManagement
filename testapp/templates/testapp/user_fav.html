@@ -113,8 +113,11 @@
 
         check = document.getElementById(slug).checked
 
+        currentPage = "user_fav"
+
         document.cookie = "slug=" + slug + ";path=" + "/bookmark";
         document.cookie = "check=" + check + ";path=" + "/bookmark";
+        document.cookie = "page=" + currentPage + ";path=" + "/bookmark";
 
         console.log("slug=" + slug)
         console.log("check=" + check)

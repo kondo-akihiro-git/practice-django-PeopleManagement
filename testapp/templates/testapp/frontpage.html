@@ -99,17 +99,6 @@
 
     {% endfor %}
   </div>
-
-
-  <!-- <div class="infinite-container">
-    <div class="infinite-item"style="overflow-y: scroll;">
-      {% for info in articles %}
-      <p>{{info.user_name}}</p>
-      {% endfor %} 
-    </div>
-  </div> -->
-
-
   
   <div class="paginator">
     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
@@ -125,8 +114,7 @@
         <li><a class="pagination-link" href="?p=1">1</a></li>
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         {% endif %}
-        <li><a class="pagination-link" href="?p={{ articles.previous_page_number }}">{{ articles.previous_page_number
-            }}</a></li>
+        <li><a class="pagination-link" href="?p={{ articles.previous_page_number }}">{{ articles.previous_page_number }}</a></li>
         {% endif %}
         <li><a class="pagination-link is-current" href="?p={{ articles.number }}">{{ articles.number }}</a></li>
         {% if articles.has_next %}
@@ -134,8 +122,7 @@
         </li>
         {% if articles.next_page_number != articles.paginator.num_pages %}
         <li><span class="pagination-ellipsis">&hellip;</span></li>
-        <li><a class="pagination-link" href="?p={{ articles.paginator.num_pages }}">{{ articles.paginator.num_pages
-            }}</a></li>
+        <li><a class="pagination-link" href="?p={{ articles.paginator.num_pages }}">{{ articles.paginator.num_pages }}</a></li>
         {% endif %}
         {% endif %}
       </ul>
@@ -146,7 +133,7 @@
 
 <script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
-  integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>　
+  integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
 
 <script type="text/javascript">
@@ -156,9 +143,11 @@
     Cookies.remove('check')
     check = document.getElementById(slug).checked
 
+    currentPage = "frontpage"
 
-    document.cookie = "slug=" + slug;
-    document.cookie = "check=" + check;
+    document.cookie = "slug=" + slug+";path=/bookmark";
+    document.cookie = "check=" + check+";path=/bookmark";
+    document.cookie = "page=" + currentPage + ";path=/bookmark";
 
     window.location.href = "{% url 'bookmark' %}"
   } 
@@ -255,24 +244,5 @@
   }
 </style>
 
-<div class="loading" style="display: none;">
-  読み込み中...
-</div>
 
 {% endblock %}
-
-<!-- {% block extrajs %}
-<script>
-var infinite = new Waypoint.Infinite({
-    element: $('.infinite-container')[0],
-    onBeforePageLoad: function () {
-    console.log("------onBeforePageLoad");
-    $('.loading').show();
-    },
-    onAfterPageLoad: function ($items) {
-    console.log("------onAfterPageLoad");
-    $('.loading').hide();
-    }
-});
-</script>
-{% endblock %}  -->
