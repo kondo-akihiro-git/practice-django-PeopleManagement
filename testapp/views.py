@@ -17,6 +17,9 @@ import re
 from django.contrib.auth import authenticate, login as django_login
 
 from django.contrib import messages
+from django.views import generic
+
+from django.core.paginator import Paginator
 
 # Create your views here.
 import pprint
@@ -30,7 +33,14 @@ def frontpage(request):
         return render(request, "testapp/login.html")
 
     userinfo = UserInfo.objects.all()
-    return render(request, "testapp/frontpage.html", {"userinfo": userinfo})
+    objects = ['Hello', 'this', 'is ', 'Django', 'Brothers']
+    paginator = Paginator(userinfo, 3)
+    p = request.GET.get('p') 
+    articles = paginator.get_page(p) 
+
+    print(articles)
+
+    return render(request, "testapp/frontpage.html", {"userinfo": userinfo,"articles": articles})
 
 
 def user_add(request):
@@ -259,3 +269,15 @@ def registation_user(request):
 # ログアウト機能の処理
 class Logout(LogoutView):
     template_name = "testapp/logout.html"
+
+
+# class ItemListScroll(generic.ListView):
+#     print("-----ItemListScroll(generic.ListView)")
+#     model = UserInfo
+#     template_name = 'testapp/frontpage.html'
+#     paginate_by = 2
+
+#     def get_queryset(self):
+#         print("-----model.objects.all()")
+#         return self.model.objects.all()
+    
