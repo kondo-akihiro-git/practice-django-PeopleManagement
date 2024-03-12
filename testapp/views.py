@@ -12,6 +12,7 @@ import testapp.forms
 from .models import UserInfo
 from testapp.forms import UserForm,LoginForm
 from django.views import generic
+from django.contrib import messages
 
 global currentSlug
 currentSlug = ""
@@ -20,6 +21,9 @@ currentSlug = ""
 def frontpage(request):
     if not request.user.is_authenticated:
         return render(request, "testapp/login.html")
+    
+    
+
     userinfo = UserInfo.objects.all()
     paginator = Paginator(userinfo, 3)
     p = request.GET.get('p') 
@@ -47,6 +51,7 @@ def user_add(request):
             if request.FILES.get("picture") is not None:
                 input_info.picture = request.FILES["picture"]
             input_info.save()
+            messages.success(request, 'ユーザー追加完了！')
         return redirect("user_add")
     else:
         form = UserForm()
@@ -153,6 +158,9 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             django_login(request, user)
+
+
+
             return django.http.HttpResponseRedirect("/frontpage")
         else:
             login_form.add_error(None, "ユーザー名またはパスワードが異なります。")

@@ -1,81 +1,106 @@
-{% extends "testapp/base.html" %} 
+{% extends "testapp/base.html" %}
 {% block content %}
 
-<form action = "." method="post" enctype="multipart/form-data"  class="column is-half" style = "margin-left: auto;margin-right: auto;">
+{% for message in messages %}
+<div id = "note"class="notification is-primary">
+<button class="delete" onclick="deleteNote()"></button>
+<div {% if message.tags %}class="{{ message.tags }}" {% endif %}>
+  {{ message }}
+</div>
+</div>
+{% endfor %}
+<script>
+  function deleteNote() {
+    document.getElementById('note').remove();
+  }
+</script>
+
+
+
+<form action="." method="post" enctype="multipart/form-data" class="column is-half"
+  style="margin-left: auto;margin-right: auto;">
   {% csrf_token %}
   <div class="card is-shady">
-        <div class="card-content">
+    <div class="card-content">
 
-            <div class="field">
-                <label class="label">Username</label>
-                <div class="control">
-                  <input id ="user_name" name = "user_name" class="input" type="text" placeholder="{{userdetail.user_name}}" value ="{{userdetail.user_name}}">
-                </div>
-              </div>
-
-              <div class="field">
-                <label class="label">Company</label>
-                <div class="control">
-                  <input id ="company_name" name = "company_name"class="input" type="text" placeholder="{{userdetail.company_name}}" value ="{{userdetail.company_name}}">
-                </div>
-              </div>
-              
-              <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                  <input id ="mail_address" name = "mail_address" class="input" type="email" placeholder="{{userdetail.mail_address}}" value ="{{userdetail.mail_address}}">
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Password</label>
-                  <input id ="password" name = "password"class="input" type="password"placeholder="{{userdetail.password}}" value ="{{userdetail.password}}">
-                </p>
-              </div>
-              <div class="field">
-                <label class="label">Message</label>
-                <div class="control">
-                  <textarea id ="test_empty" name = "test_empty"class="textarea"placeholder="{{userdetail.test_empty}}" value ="{{userdetail.test_empty}}"></textarea>
-                </div>
-              </div>
-
-              <div class="field">
-              <div class="file is-centered is-boxed">
-                <label class="file-label">
-                  <input id ="picture" name = "picture" class="file-input" type="file"  onchange="buttonClick()"value ="{{userdetail.picture}}">
-                  <span class="file-cta">
-                    <span class="file-label">
-                      Upload your image here
-                    </span>
-                  </span>
-                  <input  type ="text"class="file-name" id = "picture_" name = "picture_" style = "max-width: 17rem;height: 25px;"readonly>
-                </label>
-              </div>
-              </div>
-
-            <input type="hidden" id = "slug" name = "slug" value ="defaultvalue"/>
-
-            <div class = "container" style ="display: flex; justify-content: space-between;">
-                <div class="control">
-                  <button class="button is-primary">Add</button>
-                </div>
-            </div> 
+      <div class="field">
+        <label class="label">Username</label>
+        <div class="control">
+          <input id="user_name" name="user_name" class="input" type="text" placeholder="{{userdetail.user_name}}"
+            value="{{userdetail.user_name}}">
         </div>
       </div>
-</form> 
-<script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
-        crossorigin="anonymous"></script>  
 
-        <script>
-          function buttonClick(){
-            picture = document.getElementById('picture');
-            let files = picture.files;
-            nameTag = document.getElementById('picture_');
-            var str = String(picture.value);
-            nameTag.value  = str.replace(/C:\\fakepath\\/,'images/');
-          }
-          
-          </script>
-          
+      <div class="field">
+        <label class="label">Company</label>
+        <div class="control">
+          <input id="company_name" name="company_name" class="input" type="text"
+            placeholder="{{userdetail.company_name}}" value="{{userdetail.company_name}}">
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control">
+          <input id="mail_address" name="mail_address" class="input" type="email"
+            placeholder="{{userdetail.mail_address}}" value="{{userdetail.mail_address}}">
+        </div>
+      </div>
+      <div class="field">
+        <label class="label">Password</label>
+        <input id="password" name="password" class="input" type="password" placeholder="{{userdetail.password}}"
+          value="{{userdetail.password}}">
+        </p>
+      </div>
+      <div class="field">
+        <label class="label">Message</label>
+        <div class="control">
+          <textarea id="test_empty" name="test_empty" class="textarea" placeholder="{{userdetail.test_empty}}"
+            value="{{userdetail.test_empty}}"></textarea>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="file is-centered is-boxed">
+          <label class="file-label">
+            <input id="picture" name="picture" class="file-input" type="file" onchange="buttonClick()"
+              value="{{userdetail.picture}}">
+            <span class="file-cta">
+              <span class="file-label">
+                Upload your image here
+              </span>
+            </span>
+            <input type="text" class="file-name" id="picture_" name="picture_" style="max-width: 17rem;height: 25px;"
+              readonly>
+          </label>
+        </div>
+      </div>
+
+      <input type="hidden" id="slug" name="slug" value="defaultvalue" />
+
+      <div class="container" style="display: flex; justify-content: space-between;">
+        <div class="control">
+          <button class="button is-primary">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
+  integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
+
+<script>
+  function buttonClick() {
+    picture = document.getElementById('picture');
+    let files = picture.files;
+    nameTag = document.getElementById('picture_');
+    var str = String(picture.value);
+    nameTag.value = str.replace(/C:\\fakepath\\/, 'images/');
+  }
+
+</script>
+
+
 
 {% endblock %}
