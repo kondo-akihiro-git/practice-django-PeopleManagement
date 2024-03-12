@@ -18,7 +18,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from testapp.views import frontpage, user_detail, user_add, delete_info, bookmark, user_fav, login_user, registation_user, Logout
+from testapp.views import frontpage, user_detail, user_add, delete_info, bookmark, user_fav, login_user, registation_user, Logout,ItemListScroll
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", login_user, name = "login"),
     path('logout/', Logout.as_view(), name="logout"),
+    path('item_list_scroll/', ItemListScroll.as_view(), name="item_list_scroll"),
     path("registration/", registation_user, name = "registration"),
     path("frontpage/", frontpage, name = "frontpage"),
     path('user_add/', user_add, name = "user_add"),

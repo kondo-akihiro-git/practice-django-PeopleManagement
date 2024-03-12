@@ -11,6 +11,7 @@ import testapp.models
 import testapp.forms
 from .models import UserInfo
 from testapp.forms import UserForm,LoginForm
+from django.views import generic
 
 global currentSlug
 currentSlug = ""
@@ -24,6 +25,15 @@ def frontpage(request):
     p = request.GET.get('p') 
     articles = paginator.get_page(p) 
     return render(request, "testapp/frontpage.html", {"userinfo": userinfo,"articles": articles})
+
+
+class ItemListScroll(generic.ListView):
+    model = UserInfo
+    template_name = 'testapp/item_list_scroll.html'
+    paginate_by = 3
+
+    def get_queryset(self):
+        return self.model.objects.all()
 
 def user_add(request):
     if not request.user.is_authenticated:

@@ -1,0 +1,133 @@
+{% extends "testapp/base.html" %}
+{% block content %}
+<script>let pagename = "user_fav"</script>
+<section class="container">
+    <div class="infinite-container" style = "text-align: -webkit-center;">
+        {% for info in object_list %}
+        <div class="infinite-item">
+            <a href="#modal{{info.slug}}">
+                <div class="column is-4">
+                    <div class="card is-shady img_wrap">
+                        <div class="card-image">
+                            <figure class="image is-4by3 ">
+                                <img src="{{ MEDIA_URL }}{{info.picture}}" alt="Placeholder image" class="modal-button"
+                                    data-target="modal-image2">
+                            </figure>
+                        </div>
+
+                        <!-- 名刺の内容 -->
+                        <div class="card-content"style = "text-align: left;">
+                            <div class="content">
+                                <h4>{{info.user_name}}</h4>
+                                <p>{{info.company_name}}</p>
+                                <p>{{info.mail_address}}</p>
+                                <p>{{info.test_empty}}</p>
+                                <div style="display: flex;justify-content: space-between;">
+                                    <a href="{% url 'user_detail' info.slug %}"></a>
+                                    <span>
+                                        <label class="checkbox" style="margin-top: 13px;">
+                                            <input id="{{info.slug}}" type="checkbox" style="accent-color: #f00;"
+                                                onclick="test('{{info.slug}}',pagename);">
+                                            お気に入り
+                                        </label>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <script>
+                // DB情報→チェックボックスの更新
+                checkbox = document.getElementById("{{info.slug}}");
+                console.log("checkbox" + checkbox);
+                flg = "{{info.test_flg}}";
+                console.log("flg" + flg)
+                if (flg == "True") {
+                    checkbox.checked = true;
+                } else {
+                    checkbox.checked = false;
+                }
+            </script>
+
+            <!-- モーダルの中身 -->
+            <div id="{{info.user_name}}">
+                <div class="modal" id="modal{{info.slug}}">
+                    <a href="#!" class="overlay"></a>
+                    <div class="modal-wrapper">
+                        <div class="modal-contents">
+                            <a href="#!" class="modal-close">✕</a>
+                            <div class="modal-content">
+
+                                <div class="card-image image-width">
+                                    <figure class="image is-4by3">
+                                        <img src="{{ MEDIA_URL }}{{info.picture}}" alt="Placeholder image"
+                                            class="image-modal">
+                                    </figure>
+                                </div>
+
+                                <!-- 名刺の内容 -->
+                                <div class="card-content"style = "text-align: left;">
+                                    <div class="content">
+                                        <h4>{{info.user_name}}</h4>
+                                        <p>会社 : {{info.company_name}}</p>
+                                        <p>メール : {{info.mail_address}}</p>
+                                        <p>コメント : {{info.test_empty}}</p>
+                                        <div style="display: flex;justify-content: space-between;">
+                                            <span class="button is-primary">
+                                                <a href="{% url 'user_detail' info.slug %}" style="color: white;">編集</a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+</section>
+
+
+{% if page_obj.has_next %}
+<a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}">さらに読み込む</a>
+{% endif %}
+
+
+{% block extrajs %}
+<script>
+var infinite = new Waypoint.Infinite({
+    element: $('.infinite-container')[0],
+    onBeforePageLoad: function () {
+    $('.loading').show();
+    },
+    onAfterPageLoad: function ($items) {
+    $('.loading').hide();
+    }
+});
+</script>
+{% endblock %} 
+
+<script>
+    function test(slug, currentPage) {
+
+        Cookies.remove('slug');
+        Cookies.remove('check');
+
+        check = document.getElementById(slug).checked;
+
+        document.cookie = "slug=" + slug + ";path=" + "/bookmark";
+        document.cookie = "check=" + check + ";path=" + "/bookmark";
+        document.cookie = "page=" + currentPage + ";path=" + "/bookmark";
+
+        console.log("slug=" + slug);
+        console.log("check=" + check);
+
+        window.location.href = "{% url 'bookmark' %}";
+    } 
+</script>
+
+
+{% endblock %}
