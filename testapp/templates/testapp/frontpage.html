@@ -1,6 +1,7 @@
 {% extends "testapp/base.html" %}
 {% block content %}
 
+<script>let pagename = "frontpage"</script>
 <section class="container">
 
   <div class="columns features" style="display: flex; ">
@@ -29,7 +30,7 @@
                 <span>
                   <label class="checkbox" style="margin-top: 13px;">
                     <input id="{{info.slug}}" type="checkbox" style="accent-color: #f00;"
-                      onclick="test('{{info.slug}}');">
+                      onclick="test('{{info.slug}}', pagename);">
                     お気に入り
                   </label>
                 </span>
@@ -40,12 +41,7 @@
       </div>
     </a>
 
-
-
-
-
     <script>
-
       // DB情報→チェックボックスの更新
       checkbox = document.getElementById("{{info.slug}}");
       console.log("checkbox" + checkbox);
@@ -56,7 +52,6 @@
       } else {
         checkbox.checked = false;
       }
-
     </script>
 
     <!-- モーダルの中身 -->
@@ -67,13 +62,11 @@
           <div class="modal-contents">
             <a href="#!" class="modal-close">✕</a>
             <div class="modal-content">
-
               <div class="card-image image-width">
                 <figure class="image is-4by3">
                   <img src="{{ MEDIA_URL }}{{info.picture}}" alt="Placeholder image" class="image-modal">
                 </figure>
               </div>
-
               <!-- 名刺の内容 -->
               <div class="card-content">
                 <div class="content">
@@ -85,21 +78,18 @@
                     <span class="button is-primary"><a href="{% url 'user_detail' info.slug %}"
                         style="color: white;">編集</a></span>
                     <span>
-
                     </span>
                   </div>
                 </div>
               </div>
-
             </div>
           </div>
         </div>
       </div>
     </div>
-
     {% endfor %}
   </div>
-  
+
   <div class="paginator">
     <nav class="pagination is-centered" role="navigation" aria-label="pagination">
       {% if articles.has_previous %}
@@ -114,15 +104,17 @@
         <li><a class="pagination-link" href="?p=1">1</a></li>
         <li><span class="pagination-ellipsis">&hellip;</span></li>
         {% endif %}
-        <li><a class="pagination-link" href="?p={{ articles.previous_page_number }}">{{ articles.previous_page_number }}</a></li>
+        <li><a class="pagination-link"
+            href="?p={{ articles.previous_page_number }}">{{articles.previous_page_number}}</a></li>
         {% endif %}
-        <li><a class="pagination-link is-current" href="?p={{ articles.number }}">{{ articles.number }}</a></li>
+        <li><a class="pagination-link is-current" href="?p={{ articles.number }}">{{articles.number}}</a></li>
         {% if articles.has_next %}
-        <li><a class="pagination-link" href="?p={{ articles.next_page_number }}">{{ articles.next_page_number }}</a>
+        <li><a class="pagination-link" href="?p={{ articles.next_page_number }}">{{articles.next_page_number}}</a>
         </li>
         {% if articles.next_page_number != articles.paginator.num_pages %}
         <li><span class="pagination-ellipsis">&hellip;</span></li>
-        <li><a class="pagination-link" href="?p={{ articles.paginator.num_pages }}">{{ articles.paginator.num_pages }}</a></li>
+        <li><a class="pagination-link" href="?p={{ articles.paginator.num_pages }}">{{articles.paginator.num_pages}}</a>
+        </li>
         {% endif %}
         {% endif %}
       </ul>
@@ -130,119 +122,21 @@
   </div>
 
 </section>
+<script>
+  function test(slug, currentPage) {
+    Cookies.remove('slug');
+    Cookies.remove('check');
 
-<script src="https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
-  integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE=" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+    check = document.getElementById(slug).checked;
 
-<script type="text/javascript">
+    document.cookie = "slug=" + slug + ";path=" + "/bookmark";
+    document.cookie = "check=" + check + ";path=" + "/bookmark";
+    document.cookie = "page=" + currentPage + ";path=" + "/bookmark";
 
-  function test(slug) {
-    Cookies.remove('slug')
-    Cookies.remove('check')
-    check = document.getElementById(slug).checked
+    console.log("slug=" + slug);
+    console.log("check=" + check);
 
-    currentPage = "frontpage"
-
-    document.cookie = "slug=" + slug+";path=/bookmark";
-    document.cookie = "check=" + check+";path=/bookmark";
-    document.cookie = "page=" + currentPage + ";path=/bookmark";
-
-    window.location.href = "{% url 'bookmark' %}"
+    window.location.href = "{% url 'bookmark' %}";
   } 
 </script>
-
-<style>
-  * {
-    padding: 0;
-    margin: 0;
-  }
-
-  .mod-al-open {
-    display: inline-block;
-    background-color: #666;
-    color: #fff;
-    margin: 10px;
-  }
-
-  .modal-open a {
-    display: inline-block;
-    padding: 5px;
-    text-decoration: none;
-    color: #fff;
-  }
-
-  /*** 以下モーダル用CSS ***/
-  .image-width {
-    /* object-fit: cover; */
-    width: 100%;
-  }
-
-  .modal {
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-  }
-
-  .modal:not(:target) {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 0.5s, visibility 0.5s;
-  }
-
-  .modal:target {
-    opacity: 1;
-    visibility: visible;
-    transition: opacity 0.5s, visibility 0.5s;
-  }
-
-  .modal .overlay {
-    display: block;
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    background-color: #000;
-    opacity: 0.7;
-    top: 0;
-    left: 0;
-  }
-
-  .modal-wrapper {
-    background-color: #fff;
-    width: 100%;
-    max-width: 400px;
-    min-width: 400px;
-    height: 100%;
-    max-height: 550px;
-    position: absolute;
-    /* top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
-  }
-
-  .modal-contents {
-    overflow: auto;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-    position: relative;
-  }
-
-  .modal-content {
-    /* margin: 25px;  */
-    width: 100%;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: 5px;
-    right: 10px;
-    text-decoration: none;
-  }
-</style>
-
-
 {% endblock %}
